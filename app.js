@@ -16,7 +16,7 @@ connection.connect( (err) => {
     }
 })
 
-var user = { name: 'Adnan', password: '123456' };
+var user = { name: 'Adnan', password: '1234' };
 
 connection.query('INSERT INTO users SET ?', user, (err, res) => {
   if(err) throw err;
