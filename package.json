@@ -1,0 +1,23 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "\"This is crud operation\"",
+  "main": "app.js",
+  "dependencies": {
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adnanganie/crudOperation.git"
+  },
+  "author": "Adnan Ayoub",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adnanganie/crudOperation/issues"
+  },
+  "homepage": "https://github.com/adnanganie/crudOperation#readme"
+}
