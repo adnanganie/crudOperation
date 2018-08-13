@@ -1,0 +1,167 @@
+{{>header }} {{> navbar }}
+
+<main role="main" class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>List of Users</h4>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addUser">
+                        Add User
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="col-md-10">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>
+                                <i class="fa fa-lg fa-edit"></i>
+                            </td>
+                            <td>
+                                <i class="fa fa-lg fa-trash text-danger" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- /.container -->
+
+{{>footer}}
+</body>
+<!-- ---- Modals ------ -->
+<!-- Modal -->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addNewUser" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputName4">Name</label>
+                            <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputState">State</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrict">State</label>
+                            <select id="inputDistrict" class="form-control">
+                                <option selected>Choose...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnAddUser" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+
+        let states
+        axios.get('/getStates')
+            .then(function (response) {
+                states = response.data;
+                if (states != null) {
+                    states.forEach(function (load) {
+                        $('#inputState').append($("<option></option>").attr("value", load.state).text(load.state));
+                        //$('#editCountry').append($("<option></option>").attr("value", load.name).text(load.name));
+                        console.log(load)
+                    })
+                }
+            })
+
+        $("#inputState").on('change', function () {
+            let state = $('#inputState').val()
+
+            axios.get(`/getStates/district?stateName=${state}`)
+            .then(function (response) {
+                
+                district = response.data;
+                console.log("District", district)
+                if (district != null) {
+                    district.forEach(function (load) {
+                        $('#inputDistrict').append($("<option></option>").attr("value", load.district).text(load.district));
+                        //$('#editCountry').append($("<option></option>").attr("value", load.name).text(load.name));
+                        console.log(load)
+                    })
+                }
+            })
+        });
+
+        $('#btnAddUser').on('click', function () {
+            let formData = {
+                username: $('#inputUsername').val(),
+                email: $('#inputEmail').val(),
+                address: $('#inputAddress').val(),
+                address: $('#inputDistrict').val(),
+                address: $('#inputState').val()
+            }
+
+
+            //Object.freeze(formData)
+            // delete  formData.address
+            //formData.username = 'ABCDFF'
+            console.log(JSON.stringify(formData, undefined, 4))
+        })
+
+
+    });
+</script>
