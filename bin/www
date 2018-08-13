@@ -11,7 +11,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort('1111');
+var port = normalizePort(process.env.port || '1111');
 app.set('port', port);
 
 /**
@@ -25,10 +25,10 @@ app.io.attach(server)
  * Listen on provided port, on all network interfaces.
  */
 
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 /**
  * Normalize a port into a number, string, or false.
  */

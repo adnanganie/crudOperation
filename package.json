@@ -4,16 +4,20 @@
   "description": "\"This is crud operation\"",
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "hjs": "0.0.6",
     "hogan-express": "^0.5.2",
     "mysql": "^2.16.0",
+    "mysql2": "^1.6.1",
+    "nodemon": "^1.17.5",
+    "sequelize": "^4.38.0",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "repository": {
     "type": "git",

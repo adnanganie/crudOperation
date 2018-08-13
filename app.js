@@ -10,7 +10,15 @@ app.engine('hjs', require('hogan-express'))
 app.set('view engine', 'hjs')
 //app.set('layout', 'master')
 
-app.use('/',require('./routes/index'))
+// index route
+app.use('/home' , require('./routes/index'))
+
+// Add User route
+app.use('/user', require('./routes/addUser'))
+
+//Get State  and District
+app.use('/getStates', require('./api/states_district'))
+
 // let connection = mysql.createConnection({
 //     host : 'localhost',
 //     user : 'root',
